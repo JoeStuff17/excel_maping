@@ -1,0 +1,52 @@
+<div class="w-full h-full bg-gray-900 rounded-t-full flex items-stretch justify-center">
+    <div class="self-center">
+        <div class=" w-max h-max shadow-lg rounded-xl bg-yellow-700">
+            <div class="flex flex-col p-10 items-center">
+                <span class="mb-3 text-2xl text-white">Tag
+                    the Table Headers with Suitable One</span>
+                <div class="flex w-full p-3 max-w-lg bg-white shadow-xl mt-[10px]">
+                    <div class="w-full ">
+                        <div class="w-full flex justify-between gap-2 text-xl">
+                            <span class="font-medium flex justify-center p-2 bg-gray-100 w-full self-center mb-4">SQL _
+                                Table:</span>
+                            <span class="font-medium text-xl flex justify-center p-2 bg-gray-100 w-full mb-4">Excel _
+                                Table:</span>
+                        </div>
+
+                        <div class="flex justify-between  py-1" *ngFor="let h of tableHeader">
+                            <div>
+                                <span class="text-base flex items-center mt-3 ml-8">{{h}} <small
+                                        class="text-red-600">*</small> </span>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="outline" [formGroup]="excelform">
+                                    <!-- <mat-label>Select One</mat-label> -->
+                                    <mat-select formControlName="dropbox">
+                                        <mat-option *ngFor="let d of dropdownList | keyvalue, index as i"
+                                            (onSelectionChange)="selectedData( d , i, h)" [value]="d"> {{d.value}} </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="tagControl.hasError('required')">Please choose
+                                        something</mat-error>
+                                </mat-form-field>
+                                <!-- <script>
+                                    $('excelform').on('change', function () {
+                                        var value = $(this.dropbox).val();
+                                        $('excelform').not(this.dropbox).each(function () {
+                                            $(this.dropbox).find('option[value=' + d + ']').remove();
+                                        });
+                                    });
+                                </script> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button class="text-base text-white bg-violet-600" [disabled]="excelform.invalid" mat-raised-button
+                        (click)="copyData()">Upload all Data</button>
+                </div>
+                <!-- routerLink="/dashboard" -->
+            </div>
+        </div>
+        <!-- <img class="ml-[200px] h-[300px] mt-[200px]" src="../../assets/Lottie/28799-a-woman-in-isometric-style-works-at-a-table.gif" > -->
+    </div>
+</div>

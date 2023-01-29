@@ -1,0 +1,15 @@
+:host ::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: #E0E0E0 !important;
+    }
+    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+        color: #BBDEFB !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 6px 0px 9px 0px;
+    }
+ .customMat .mat-form-field-wrapper {
+        padding-bottom: 0px !important;
+        margin: 0px !important;
+    }
+}
