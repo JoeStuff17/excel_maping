@@ -2,6 +2,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { dashboardRouting } from './dashboard.routes';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -9,7 +10,8 @@ import { dashboardRouting } from './dashboard.routes';
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
-    dashboardRouting
+    dashboardRouting,
+    MatButtonModule
   ]
 })
 export class DashboardModule { }

@@ -60,15 +60,15 @@ export class HomeComponent implements OnInit {
     const data = new FormData();
     const a = this.xlFile
     data.append('file', a[0]);
-    this.buttonDisable = false;
-    // this.api.addFiles(data).subscribe((res: any) => {
-    //   if (res.success) {
-    //     this.buttonDisable = false;
-    //     return this.showSuccess();
-    //   }else{
-    //     return this.showError();
-    //   }
-    // });
+    // this.buttonDisable = false;
+    this.api.addFiles(data).subscribe((res: any) => {
+      if (res.success) {
+        this.buttonDisable = false;
+        return this.showSuccess();
+      }else{
+        return this.showError();
+      }
+    });
   }
   showSuccess() {
     this.toastr.success('File Uploaded Successfully', 'Success', { timeOut: 3000 })

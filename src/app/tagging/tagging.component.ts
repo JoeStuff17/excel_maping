@@ -11,6 +11,7 @@ interface head {
   head: string;
 }
 
+
 @Component({
   selector: 'app-tagging',
   templateUrl: './tagging.component.html',
@@ -62,34 +63,41 @@ export class TaggingComponent implements OnInit {
   }
 
   ///----->uploading Data
-  selectedData(d: any, i: any, h:any) {
-    this.filterData = []
-    for (let i = 1; i < this.excelbodyData.length; i++) {
-      this.filterData.push(this.excelbodyData[i][d.key]);
-     
+  selectedData(d: any, i: any, j: any, h:any) {
+    console.log(i,j);
+    this.filterData = [];
+    for (let x = 1; x < this.excelbodyData.length; x++) {
+      
+      this.filterData.push(this.excelbodyData[x][d.key]);
     }
+    // console.log(this.filterData);
 
-    if(this.tableHeader[i]=== h)
+    if(this.tableHeader[i]===h)
     {
       this.myObj[h]=this.filterData
     }
-    console.log(this.myObj);
+
+    // for(let x=0; x<this.tableHeader.length; x++)
+    // {
+    //   if(x===i)
+    //   {
+    //     //do nothing
+    //   }
+    //   else{
+    //     this.tableHeader[x].dropDown.splice(j,1);
+    //     console.log(x);
+        
+    //   }
+    // }
+
     // console.log(this.excelbodyData);
-    // console.log(this.filterData);
-    
-   
+    // console.log(this.filterData);   
   }
 
 
   copyData() {
+    console.log(this.myObj);
 
-    //  console.log(this.tableHeader);
-   
-     console.log(this.myObj);
-    
-    this.api.addData(this.myObj).subscribe((res)=>{
-      console.log(res);
-    })
     Swal.fire({
       title: 'Are you want to add?',
       icon: 'warning',
@@ -103,7 +111,8 @@ export class TaggingComponent implements OnInit {
           'Well Done',
           'Your Data Added Successfully',
           'success'
-        ).then((res) => { })
+        ).then((res) => { this.api.addData(this.myObj).subscribe((res)=>{
+        })})
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -115,14 +124,44 @@ export class TaggingComponent implements OnInit {
 
   fetch() {
     this.api.getFileHeader().subscribe((res: any) => {
+
+      // console.log(res.data);
+      // console.log(this.dropdownList);
+      this.tableHeader = res.data;
+      // console.log(this.tableHeader);
+      
       // console.log(res);
-      this.tableHeader = res.data
+
+      // this.tableHeader = [
+      //   {
+      //     header : 'Id',
+      //     dropDown : ['Id', 'Name', 'Age', 'gender']
+      //   },
+      //   {
+      //     header : 'name',
+      //     dropDown : ['Id', 'Name', 'Age', 'gender']
+      //   },
+      //   {
+      //     header : 'age',
+      //     dropDown : ['Id', 'Name', 'Age', 'gender']
+      //   },
+      //   {
+      //     header : 'sex',
+      //     dropDown : ['Id', 'Name', 'Age', 'gender']
+      //   }
+      // ]
+      
+
+      // for(let i=0; i<res.data.length; i++)
+      // {
+
+      //   this.tableHeader.push({header: res.data[i], dropdown: this.dropdownList})        
+      // }     
+      
 
       for(let i=0; i<this.tableHeader.length; i++){
       
-        console.log(this.tableHeader[i]);
-        this.myObj[this.tableHeader[i]]=[this.filterData];
-        console.log(this.myObj);
+        this.myObj[this.tableHeader[i]]=[this.filterData];   
      }
     });
 

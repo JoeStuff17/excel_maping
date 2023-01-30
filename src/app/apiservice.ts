@@ -38,6 +38,10 @@ export class ApiService {
       })
     )
   }
+
+  getRowCount(): Observable<any> {
+    return this.http.get(this.url + '/count');
+  }
   
 }
 

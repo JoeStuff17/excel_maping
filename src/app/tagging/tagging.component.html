@@ -13,7 +13,7 @@
                                 Table:</span>
                         </div>
 
-                        <div class="flex justify-between  py-1" *ngFor="let h of tableHeader">
+                        <div class="flex justify-between  py-1" *ngFor="let h of tableHeader, index as i">
                             <div>
                                 <span class="text-base flex items-center mt-3 ml-8">{{h}} <small
                                         class="text-red-600">*</small> </span>
@@ -22,20 +22,13 @@
                                 <mat-form-field appearance="outline" [formGroup]="excelform">
                                     <!-- <mat-label>Select One</mat-label> -->
                                     <mat-select formControlName="dropbox">
-                                        <mat-option *ngFor="let d of dropdownList | keyvalue, index as i"
-                                            (onSelectionChange)="selectedData( d , i, h)" [value]="d"> {{d.value}} </mat-option>
+                                        <mat-option *ngFor="let d of dropdownList | keyvalue, index as j"
+                                            (onSelectionChange)="selectedData( d , i, j, h)" [value]="d"> {{d.value}}
+                                        </mat-option>
                                     </mat-select>
                                     <mat-error *ngIf="tagControl.hasError('required')">Please choose
                                         something</mat-error>
                                 </mat-form-field>
-                                <!-- <script>
-                                    $('excelform').on('change', function () {
-                                        var value = $(this.dropbox).val();
-                                        $('excelform').not(this.dropbox).each(function () {
-                                            $(this.dropbox).find('option[value=' + d + ']').remove();
-                                        });
-                                    });
-                                </script> -->
                             </div>
                         </div>
                     </div>
