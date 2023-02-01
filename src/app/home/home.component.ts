@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../apiservice';
 import * as XLSX from 'xlsx';
-import { Observable } from 'rxjs';
 import { dataPassService } from '../datapassService';
 
 // const Excel = require('exceljs');

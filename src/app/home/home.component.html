@@ -1,19 +1,20 @@
 <div class="flex h-full">
-    <div class="w-4/12 bg-green-300">
+    <div class="hidden md:inline-block w-full bg-green-300 h-full xl:w-4/12 bg-green-300">
         <div
-            class="flex w-[600px] h-[500px] p-6 max-w-md mx-auto bg-white rounded-xl shadow-xl flex items-center space-x-4 ml-[270px] mt-[180px]">
+            class="flex sm:w-[300px] ml-[50px] md:w-[400px] xl:w-[600px] sm:h-[300px] xl:h-[500px] p-6 max-w-md mx-auto bg-white rounded-xl shadow-xl flex items-center space-x-4 md:ml-[70px] xl:ml-[270px] sm: mt-[50px] md:mt-[150px] xl:mt-[180px]">
             <img src="../../assets/Lottie/7491-uploading-files.gif">
         </div>
     </div>
-    <div class="w-3/12"></div>
-    <div class="w-6/12">
-        <div class="flex flex-col mt-[300px]">
+    
+    <div class="hidden md:inline-block xl:w-3/12"></div>
+    <div class="w-full sm:w-full xl:w-6/12">
+        <div class="flex flex-col mt-[300px] sm:mt-[500px] md:mt-[300px] xl:mt-[300px]">
             <p
                 class=" flex self-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                 Choose the Excel-file</p>
             <div class="p-6 w-max bg-white rounded-xl shadow-lg flex items-center self-center">
                 <form [formGroup]="uploadForm">
-                    <input type="file" formControlName="file" (change)="readfile($event) "><br>
+                    <input type="file" accept=".xlsx, .csv, .xlsm, .xls" formControlName="file" (change)="readfile($event) "><br>
                 </form>
                 <button class="w-[100px]" mat-raised-button (click)="upload()">Upload</button>
             </div>

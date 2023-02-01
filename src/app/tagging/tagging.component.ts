@@ -1,15 +1,9 @@
 import { ApiService } from './../apiservice';
-import { dashboardRouting } from './../dashboard/dashboard.routes';
 import { Router } from '@angular/router';
 import { dataPassService } from './../datapassService';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
-
-interface head {
-  head: string;
-}
 
 
 @Component({
@@ -17,8 +11,8 @@ interface head {
   templateUrl: './tagging.component.html',
   styleUrls: ['./tagging.component.scss']
 })
+
 export class TaggingComponent implements OnInit {
-  // buttonDisable = true;
   dropdownList: any;
   ExcelData = [];
   excelbodyData = [];
@@ -26,17 +20,21 @@ export class TaggingComponent implements OnInit {
   tableHeader = [];
   mappingData: any[] = [];
   myObj = {};
-  
+  tableLength: any;
+  strucure = {};
+  counter = 0;
+  disabled = true;
 
   constructor(private readonly fb: FormBuilder,
     private readonly dataService: dataPassService,
     private router: Router,
-    private api: ApiService) { 
-    }
+    private api: ApiService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.readheader();
-    if (this.dropdownList.length === undefined) {
+    if (this.dropdownList.length === 0) {
       this.router.navigateByUrl('/home')
     }
     this.fetch();
@@ -44,60 +42,46 @@ export class TaggingComponent implements OnInit {
 
   excelform: FormGroup = this.fb.group({
     dropbox: ['', Validators.required]
+
   });
 
   tagControl = new FormControl<''>('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
 
   async readheader() {
+    this.dropdownList = [];
     this.dataService.passExcel_head.subscribe((headdata: any) => {
-      this.dropdownList = headdata;
-      //this.dropdownList = Object.keys(data[0]) ;
-      // console.log(this.dropdownList);
+      for (const d of headdata) {
+        this.dropdownList.push({ isSelected: false, name: d, data: headdata });
+      }
     });
     this.dataService.passExcel_body.subscribe((bodyData: any) => {
       this.excelbodyData = bodyData;
-      
-      // console.log(bodyData);
     })
   }
 
-  ///----->uploading Data
-  selectedData(d: any, i: any, j: any, h:any) {
-    console.log(i,j);
+
+  ///----->Dropdown selection
+  selectedData(d: any, i: any, j: number, h: any) {
+    this.dropdownList[j]['isSelected'] = true;
     this.filterData = [];
+
     for (let x = 1; x < this.excelbodyData.length; x++) {
-      
-      this.filterData.push(this.excelbodyData[x][d.key]);
-    }
-    // console.log(this.filterData);
-
-    if(this.tableHeader[i]===h)
-    {
-      this.myObj[h]=this.filterData
+      this.filterData.push(this.excelbodyData[x][j]);
     }
 
-    // for(let x=0; x<this.tableHeader.length; x++)
-    // {
-    //   if(x===i)
-    //   {
-    //     //do nothing
-    //   }
-    //   else{
-    //     this.tableHeader[x].dropDown.splice(j,1);
-    //     console.log(x);
-        
-    //   }
-    // }
+    if (this.tableHeader[i] === h) {
+      this.myObj[h.header] = this.filterData;
+    }
 
-    // console.log(this.excelbodyData);
-    // console.log(this.filterData);   
+    this.counter++
+    if (this.tableHeader.length === this.counter) {
+      this.disabled = false;
+    }
   }
 
-
+  ///----->Submition and calling Post API
   copyData() {
-    console.log(this.myObj);
-
     Swal.fire({
       title: 'Are you want to add?',
       icon: 'warning',
@@ -105,14 +89,18 @@ export class TaggingComponent implements OnInit {
       confirmButtonText: 'Yes Add it',
       cancelButtonText: 'Cancel',
     }).then((result) => {
+      this.api.addData(this.myObj).subscribe((res) => {
+        console.log(res.data, res.err);
+        this.dataService.err_count.next(res.err);
+        this.dataService.suc_count.next(res.data);
+        // console.log(res.data);
+      });
       if (result.value) {
-        this.router.navigateByUrl('/dashboard');
         Swal.fire(
           'Well Done',
           'Your Data Added Successfully',
           'success'
-        ).then((res) => { this.api.addData(this.myObj).subscribe((res)=>{
-        })})
+        ).then((res) => { this.router.navigateByUrl('/dashboard'); })
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -122,49 +110,17 @@ export class TaggingComponent implements OnInit {
     })
   }
 
+  ///----->Fetching SQL-Table headers
   fetch() {
     this.api.getFileHeader().subscribe((res: any) => {
+      this.tableLength = res.data.length;
+      for (let i = 0; i < res.data.length; i++) {
+        this.tableHeader.push({ header: res.data[i], dropdown: this.dropdownList });
+      }
 
-      // console.log(res.data);
-      // console.log(this.dropdownList);
-      this.tableHeader = res.data;
-      // console.log(this.tableHeader);
-      
-      // console.log(res);
-
-      // this.tableHeader = [
-      //   {
-      //     header : 'Id',
-      //     dropDown : ['Id', 'Name', 'Age', 'gender']
-      //   },
-      //   {
-      //     header : 'name',
-      //     dropDown : ['Id', 'Name', 'Age', 'gender']
-      //   },
-      //   {
-      //     header : 'age',
-      //     dropDown : ['Id', 'Name', 'Age', 'gender']
-      //   },
-      //   {
-      //     header : 'sex',
-      //     dropDown : ['Id', 'Name', 'Age', 'gender']
-      //   }
-      // ]
-      
-
-      // for(let i=0; i<res.data.length; i++)
-      // {
-
-      //   this.tableHeader.push({header: res.data[i], dropdown: this.dropdownList})        
-      // }     
-      
-
-      for(let i=0; i<this.tableHeader.length; i++){
-      
-        this.myObj[this.tableHeader[i]]=[this.filterData];   
-     }
+      for (let i = 0; i < this.tableHeader.length; i++) {
+        this.myObj[this.tableHeader[i].header] = [this.filterData];
+      }
     });
-
   }
-
 }

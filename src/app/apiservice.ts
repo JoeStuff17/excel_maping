@@ -40,8 +40,8 @@ export class ApiService {
   }
 
   getRowCount(): Observable<any> {
-    return this.http.get(this.url + '/count');
+    return this.http.get(this.url + '/tot-count');
   }
-  
+
 }
 
