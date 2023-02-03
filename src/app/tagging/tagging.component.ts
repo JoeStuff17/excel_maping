@@ -42,7 +42,6 @@ export class TaggingComponent implements OnInit {
 
   excelform: FormGroup = this.fb.group({
     dropbox: ['', Validators.required]
-
   });
 
   tagControl = new FormControl<''>('', Validators.required);
@@ -62,22 +61,29 @@ export class TaggingComponent implements OnInit {
 
 
   ///----->Dropdown selection
-  selectedData(d: any, i: any, j: number, h: any) {
+  selectedData( i: any, j: number, h: any) {
+  
     this.dropdownList[j]['isSelected'] = true;
     this.filterData = [];
-
+    
     for (let x = 1; x < this.excelbodyData.length; x++) {
       this.filterData.push(this.excelbodyData[x][j]);
-    }
+    }   
 
+    console.log(this.filterData);
+    
     if (this.tableHeader[i] === h) {
+      this.myObj[h.header]=[];
       this.myObj[h.header] = this.filterData;
-    }
+    }    
 
-    this.counter++
-    if (this.tableHeader.length === this.counter) {
-      this.disabled = false;
+    for(let k = 0; k<this.tableHeader.length; k++){      
+      if(this.myObj[this.tableHeader[k].header].length === 1){
+        this.disabled = true;
+        return; 
+      }
     }
+    this.disabled = false;
   }
 
   ///----->Submition and calling Post API
@@ -87,7 +93,7 @@ export class TaggingComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes Add it',
-      cancelButtonText: 'Cancel',
+      cancelButtonText: 'Cancel'
     }).then((result) => {
       this.api.addData(this.myObj).subscribe((res) => {
         console.log(res.data, res.err);
@@ -117,7 +123,6 @@ export class TaggingComponent implements OnInit {
       for (let i = 0; i < res.data.length; i++) {
         this.tableHeader.push({ header: res.data[i], dropdown: this.dropdownList });
       }
-
       for (let i = 0; i < this.tableHeader.length; i++) {
         this.myObj[this.tableHeader[i].header] = [this.filterData];
       }

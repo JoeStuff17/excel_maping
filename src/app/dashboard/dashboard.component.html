@@ -3,34 +3,29 @@
         <div class="flex gap-5 justify-center mt-[150px] xl:mt-[220px]">
             <div class="w-max h-max bg-white rounded-xl shadow-lg">
                 <div class="flex m-4 sm:m-3 xl:m-12">
-                    <div class="flex flex-col">
-                        <div class="flex gap-2 xl:gap-5">
-                            <div
-                                class="w-[140px] xl:w-[180px] h-[200px] rounded-tr-[48px] rounded-tl-xl rounded-bl-[48px] shadow-lg bg-green-400">
-                                <span class="text-lg m-2 pt-12 flex justify-center">Success Entry:</span><br>
-                                <span class="text-lg m-2 flex justify-center">{{successcount}}</span>
-
-                            </div>
-                            <div
-                                class="w-[140px] xl:w-[180px] h-[200px] rounded-tl-[48px] rounded-tr-xl rounded-br-[48px] shadow-lg bg-red-400">
-                                <span class="text-lg m-2 pt-12 flex justify-center">Failed Entry:</span><br>
-                                <span class="text-lg m-2 flex justify-center">{{errcount}}</span>
-                            </div>
+                    <div class="flex flex-col gap-2 xl:gap-5">
+                        <div class="mt-3 w-[140px] xl:w-[300px] rounded-[48px] shadow-lg bg-green-400">
+                            <span class="text-lg p-5 flex justify-center">Success Entry:
+                                <span class="text-lg px-2 flex ">{{successcount}}</span></span>
                         </div>
+                        <div class="mt-2.5 w-[140px] xl:w-[300px] rounded-[48px] shadow-lg bg-red-400">
+                            <span class="text-lg p-5 flex justify-center">Failed Entry:
+                                <span class="text-lg px-2 flex justify-center">{{errcount}}</span></span>
 
-                        <div class=" mt-2 h-max rounded-[48px] shadow-lg bg-gray-400">
+                        </div>
+                        <div class=" mt-2.5 h-max rounded-[48px] shadow-lg bg-gray-400">
                             <span class="text-lg p-5 flex justify-center">Total Entry:
-                                <span class="px-2">{{totcount}}</span> </span>
+                                <span class="px-2 inline-block align-text-bottom">{{totcount}}</span> </span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flex hidden  md:inline-block justify-center">
                 <img class="h-[375px] w-[400px] shadow-lg rounded-xl"
-                    src="../../assets/Lottie/28799-a-woman-in-isometric-style-works-at-a-table.gif" alt="">
+                    src="../../assets/Lottie/67014-files-animation.gif" alt="">
             </div>
         </div>
-        <div class="mt-6 ml-[1px] sm:ml-[10px] md:ml-[40px] xl:ml-[70px] flex justify-center">
+        <div class="mt-6 flex justify-center">
             <button class="bg-green-400" mat-raised-button routerLink="/home">
                 Add Another
                 <!-- <mat-icon>forward</mat-icon> -->

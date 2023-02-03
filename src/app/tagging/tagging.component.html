@@ -1,16 +1,17 @@
-<div class="w-full h-full bg-gradient-to-r from-[#304972] to-[#142033] flex items-stretch justify-center">
+<div
+    class="w-full h-full currently-loading bg-gradient-to-r from-[#304972] to-[#142033] flex items-stretch justify-center">
     <div class="self-center">
-        <div class=" w-[450px] h-max shadow-lg rounded-xl bg-white border-2 border-yellow-200">
+        <div class=" w-[450px] h-max shadow-xl rounded-xl bg-white ">
             <div class="flex flex-col px-10 pt-10 items-center">
-                <span class="mb-3 text-2xl text-black font-scriptina">Tag
-                    the Table Headers</span>
-                   <span class="align-top"><mat-divider></mat-divider></span>
-                    
+                <span class="mb-3 text-2xl text-black font-cherif">Tag
+                    the Table Headers <mat-divider></mat-divider></span>
+
                 <div class="flex w-full p-3 max-w-lg mt-[10px]">
                     <div class="w-full ">
                         <div class="w-full flex justify-between gap-2 text-xl">
                             <span class="font-medium font-sans flex justify-left p-2 w-full self-center mb-2">SQL</span>
-                            <span class="font-medium font-sans text-xl flex justify-left ml-14 p-2 w-full mb-2">Excel</span>
+                            <span
+                                class="font-medium font-sans text-xl flex justify-left ml-14 p-2 w-full mb-2">Excel</span>
                         </div>
 
                         <div class="flex justify-between py-1" *ngFor="let h of tableHeader, index as i">
@@ -23,7 +24,7 @@
                                     <mat-select formControlName="dropbox">
                                         <mat-option *ngFor="let d of dropdownList, index as j"
                                             [disabled]="d['isSelected']"
-                                            (onSelectionChange)="selectedData( d , i, j, h)" [value]="d['name']">
+                                            (click)="selectedData(i, j, h)" [value]="d['name']">
                                             {{d.name}}
                                         </mat-option>
                                     </mat-select>
@@ -34,11 +35,11 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <div class="">
-                <button class="flex w-full h-[50px] text-base text-white bg-violet-600" [disabled]="disabled" mat-raised-button
-                    (click)="copyData()">Upload all Data</button>
+                <button class="flex w-full h-[52px] text-base text-white bg-green-600" [disabled]="disabled"
+                    mat-raised-button (click)="copyData()">Upload all Data</button>
             </div>
         </div>
     </div>
