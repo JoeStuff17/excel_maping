@@ -24,6 +24,8 @@ export class TaggingComponent implements OnInit {
   strucure = {};
   counter = 0;
   disabled = true;
+  selectedList: any[] = [];
+  headerData: any;
 
   constructor(private readonly fb: FormBuilder,
     private readonly dataService: dataPassService,
@@ -59,31 +61,50 @@ export class TaggingComponent implements OnInit {
     })
   }
 
+  unSelectData() {
+    for (const d of this.dropdownList) {
+      d['isSelected'] = false;
+    }
+  }
 
   ///----->Dropdown selection
-  selectedData( i: any, j: number, h: any) {
-  
-    this.dropdownList[j]['isSelected'] = true;
+  selectedData(i: any, j: number, h: any) {
+    if (this.selectedList.length > 0) {      
+      const isExistIndex = this.selectedList.findIndex((x: any) => x.id === i);
+      if (isExistIndex < 0) {
+        this.selectedList.push({id: i, name: this.dropdownList[j]['name']});
+      } else {
+        this.selectedList[isExistIndex]['name'] = this.dropdownList[j]['name'];
+      }
+    } else {
+      this.selectedList.push({id: i, name: this.dropdownList[j]['name']});
+    }
+    this.removeList();
     this.filterData = [];
-    
+
     for (let x = 1; x < this.excelbodyData.length; x++) {
       this.filterData.push(this.excelbodyData[x][j]);
-    }   
+    }
 
-    console.log(this.filterData);
-    
     if (this.tableHeader[i] === h) {
-      this.myObj[h.header]=[];
+      this.myObj[h.header] = [];
       this.myObj[h.header] = this.filterData;
-    }    
+    }
 
-    for(let k = 0; k<this.tableHeader.length; k++){      
-      if(this.myObj[this.tableHeader[k].header].length === 1){
+    for (let k = 0; k < this.tableHeader.length; k++) {
+      if (this.myObj[this.tableHeader[k].header].length === 1) {
         this.disabled = true;
-        return; 
+        return;
       }
     }
     this.disabled = false;
+  }
+
+  removeList() {    
+    this.unSelectData();
+    for (const s of this.selectedList) {
+     this.dropdownList.filter((x: any) => x.name == s.name)[0]['isSelected'] = true;
+    }
   }
 
   ///----->Submition and calling Post API
@@ -95,13 +116,13 @@ export class TaggingComponent implements OnInit {
       confirmButtonText: 'Yes Add it',
       cancelButtonText: 'Cancel'
     }).then((result) => {
-      this.api.addData(this.myObj).subscribe((res) => {
-        console.log(res.data, res.err);
-        this.dataService.err_count.next(res.err);
-        this.dataService.suc_count.next(res.data);
-        // console.log(res.data);
-      });
       if (result.value) {
+        this.api.addData(this.myObj).subscribe((res) => {
+          console.log(res.data, res.err);
+          this.dataService.err_count.next(res.err);
+          this.dataService.suc_count.next(res.data);
+          // console.log(res.data);
+        });
         Swal.fire(
           'Well Done',
           'Your Data Added Successfully',
@@ -118,6 +139,7 @@ export class TaggingComponent implements OnInit {
 
   ///----->Fetching SQL-Table headers
   fetch() {
+
     this.api.getFileHeader().subscribe((res: any) => {
       this.tableLength = res.data.length;
       for (let i = 0; i < res.data.length; i++) {

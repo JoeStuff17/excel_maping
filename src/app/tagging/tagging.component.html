@@ -21,9 +21,9 @@
                             </div>
                             <div class="text-white ">
                                 <mat-form-field appearance="outline" [formGroup]="excelform">
-                                    <mat-select formControlName="dropbox">
+                                    <mat-select #dropdown formControlName="dropbox">
                                         <mat-option *ngFor="let d of dropdownList, index as j"
-                                            [disabled]="d['isSelected']"
+                                            [disabled]="d['isSelected']" 
                                             (click)="selectedData(i, j, h)" [value]="d['name']">
                                             {{d.name}}
                                         </mat-option>
