@@ -7,15 +7,15 @@ import { Observable, Subject, tap } from "rxjs";
 })
 
 export class ApiService {
-  url = "http://localhost:3000/api/file"
+  url = "http://localhost:3000/api/success-record"
   constructor(private http: HttpClient) { }
 
   private _refresh = new Subject<void>();
-  get Refresh(){
+  get Refresh() {
     return this._refresh;
   }
 
-   getFileHeader(): Observable<any> {
+  getFileHeader(): Observable<any> {
     return this.http.get(this.url + '/fetch');
   }
 
@@ -25,7 +25,7 @@ export class ApiService {
 
   addData(payload: any): Observable<any> {
     return this.http.post(this.url + '/create', payload).pipe(
-      tap(()=>{
+      tap(() => {
         this.Refresh.next();
       })
     )
@@ -33,7 +33,7 @@ export class ApiService {
 
   addFiles(payload: any): Observable<any> {
     return this.http.post(this.url + '/upload', payload).pipe(
-      tap(()=>{
+      tap(() => {
         this.Refresh.next();
       })
     )

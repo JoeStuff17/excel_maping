@@ -139,7 +139,6 @@ export class TaggingComponent implements OnInit {
 
   ///----->Fetching SQL-Table headers
   fetch() {
-
     this.api.getFileHeader().subscribe((res: any) => {
       this.tableLength = res.data.length;
       for (let i = 0; i < res.data.length; i++) {
