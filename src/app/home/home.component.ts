@@ -15,6 +15,8 @@ import { dataPassService } from '../datapassService';
 export class HomeComponent implements OnInit {
   ExcelData = [];
   buttonDisable = true;
+  buttonDisable1 = false;
+
   constructor(public api: ApiService,
     private readonly fb: FormBuilder,
     private toastr: ToastrService,
@@ -56,11 +58,13 @@ export class HomeComponent implements OnInit {
   async upload() {
     const data = new FormData();
     const a = this.xlFile
-    data.append('file', a[0]);
+    data.append('file', a[0]);  
     // this.buttonDisable = false;
     this.api.addFiles(data).subscribe((res: any) => {
       if (res.success) {
         this.buttonDisable = false;
+        this.buttonDisable1 = true;
+
         return this.showSuccess();
       }else{
         return this.showError();

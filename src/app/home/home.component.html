@@ -1,36 +1,40 @@
-<div class="flex h-full">
-    <div class="hidden md:inline-block w-full h-full xl:w-5/12 ">
+<div class="flex h-full bg-gray-50">
+    <div class="md:inline-block w-full h-full xl:w-5/12 ">
         <!-- <div
             class="flex sm:w-[300px] ml-[50px] xl:w-[600px] sm:h-[300px] xl:h-[500px] p-6 max-w-md mx-auto bg-white 
             rounded-xl shadow-xl flex items-center space-x-4 md:ml-[70px] xl:ml-[270px] sm: mt-[50px] md:mt-[150px] xl:mt-[160px]">
             <img src="../../assets/Lottie/7491-uploading-files.gif">
         </div> -->
+        <!-- <div class="h-[86vh] bg-gray-50 m-14 border border-2 border-gray-200 rounded-lg"> -->
+            <div class="flex flex-col mt-[230px] sm:mt-[230px] md:mt-[230px] xl:mt-[230px]">
+                <p
+                    class=" flex pl-2 md:pl-[15vh] xl:pl-[15vh] pb-8 text-2xl text-gray-800 font-medium bg-clip-text font-sans">
+                    Choose the Excel-file</p>
+                    <small class="pl-2 md:pl-[15vh] xl:pl-[15vh]"> <span class="text-red-600">*</span> Only accecpt .xlsx, .csv, .xlsm, .xls</small>
+                <div class="p-5 mt-2 w-max bg-white rounded-xl shadow-sm flex items-center self-center">
+                    <form [formGroup]="uploadForm">
 
-        <div class="flex flex-col mt-[300px] sm:mt-[500px] md:mt-[300px] xl:mt-[300px]">
-            <p
-                class=" flex self-center text-xl font-medium bg-clip-text">
-                Choose the Excel-file</p>
-            <div class="p-6 w-max bg-white rounded-xl shadow-lg flex items-center self-center">
-                <form [formGroup]="uploadForm">
-                    <input type="file" accept=".xlsx, .csv, .xlsm, .xls" formControlName="file" (change)="readfile($event) "><br>
-                </form>
-                <button class="w-[100px]" mat-raised-button (click)="upload()">Upload</button>
+                        <input type="file" accept=".xlsx, .csv, .xlsm, .xls" formControlName="file" (change)="readfile($event) "><br>
+                    </form>
+                    <button class="w-[100px]" [disabled]="buttonDisable1" mat-raised-button (click)="upload()">Upload</button>
+                </div>
+                <div class="mt-5 flex flex-col w-[52vh] self-center gap-1">
+                    <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button routerLink="/tagging">
+                        Continue
+                        <!-- <mat-icon>forward</mat-icon> -->
+                    </button>
+                    <small class="flex self-center text-blue-500 cursor-pointer" onclick="history.go(0)">Choose Another</small>
+                    <!-- <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button onclick="history.go(0)">
+                        Choose Another
+                    </button> -->
+                </div>
             </div>
-            <div class="mt-5 flex self-center gap-3">
-                <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button onclick="history.go(0)">
-                    Choose Another
-                    <!-- <mat-icon>forward</mat-icon> -->
-                </button>
-                <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button routerLink="/tagging">
-                    Continue
-                    <!-- <mat-icon>forward</mat-icon> -->
-                </button>
-            </div>
-        </div>
+        <!-- </div> -->
+        
     </div>
     
     <!-- <div class="hidden md:inline-block xl:w-3/12 bg-green-300"></div> -->
-    <div class="w-full sm:w-full xl:w-7/12 bg-green-300">
+    <div class="hidden sm:inline-block  w-full xl:w-7/12 bg-green-300">
         
 
     </div>
