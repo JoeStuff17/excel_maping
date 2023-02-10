@@ -118,7 +118,7 @@ export class TaggingComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.api.addData(this.myObj).subscribe((res) => {
-          console.log(res.data, res.err);
+          // console.log(res);
           this.dataService.err_count.next(res.err);
           this.dataService.suc_count.next(res.data);
           // console.log(res.data);

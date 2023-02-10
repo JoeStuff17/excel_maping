@@ -7,7 +7,8 @@ import { Observable, Subject, tap } from "rxjs";
 })
 
 export class ApiService {
-  url = "http://localhost:3000/api/success-record"
+  url = "http://localhost:3000/api/success-record";
+  url1 = "http://localhost:3000/api/batch"
   constructor(private http: HttpClient) { }
 
   private _refresh = new Subject<void>();
@@ -41,6 +42,10 @@ export class ApiService {
 
   getRowCount(): Observable<any> {
     return this.http.get(this.url + '/tot-count');
+  }
+
+  getCount(): Observable<any> {
+    return this.http.get(this.url1 + '/count');
   }
 
 }
