@@ -36,9 +36,9 @@ export class TaggingComponent implements OnInit {
 
   ngOnInit(): void {
     this.readheader();
-    // if (this.dropdownList.length === 0) {
-    //   this.router.navigateByUrl('/home')
-    // }
+    if (this.dropdownList.length === 0) {
+      this.router.navigateByUrl('/home')
+    }
     this.fetch();
   }
 

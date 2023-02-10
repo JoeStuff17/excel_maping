@@ -1,35 +1,33 @@
 <div
     class="w-full h-full currently-loading bg-gradient-to-r from-[#304972] to-[#142033] flex items-stretch justify-center">
     <div class="self-center">
-        <div class=" w-[450px] h-max shadow-lg rounded-xl bg-white ">
+        <div class=" w-[450px] h-max shadow-md rounded-md bg-white ">
             <div class="flex flex-col px-10 pt-10 items-center">
                 <span class="mb-3 text-2xl text-black font-cherif">Tag
                     the Table Headers <mat-divider></mat-divider></span>
 
-                <div class="flex w-full p-3 max-w-lg mt-[10px]">
-                    <div class="w-full ">
-                        <div class="w-full flex justify-between gap-2 text-xl">
+                <div class="flex flex-col w-full p-3 mt-[10px]">
+                    <div class="">
+                        <!-- <div class="w-full flex justify-between gap-2 text-xl">
                             <span class="font-medium font-sans flex justify-left p-2 w-full ml-6 self-center mb-2">SQL</span>
                             <span
                                 class="font-medium font-sans text-xl flex justify-left ml-14 p-2 w-full mb-2">Excel</span>
-                        </div>
+                        </div> -->
 
-                        <div class="flex justify-between py-1" *ngFor="let h of tableHeader, index as i">
+                        <div class="py-1" *ngFor="let h of tableHeader, index as i">
                             <div>
-                                <span class="text-base flex items-center mt-3 ml-4">{{h.header}} <small
+                                <span class="text-base flex items-center ml-4">{{h.header}} <small
                                         class="text-red-600">*</small> </span>
                             </div>
-                            <div class="text-white ">
-                                <mat-form-field appearance="outline" [formGroup]="excelform">
+                            <div class="flex justify-center">
+                                <mat-form-field class="w-[40vh]" appearance="outline" [formGroup]="excelform">
                                     <mat-select #dropdown formControlName="dropbox">
                                         <mat-option *ngFor="let d of dropdownList, index as j"
-                                            [disabled]="d['isSelected']" 
-                                            (click)="selectedData(i, j, h)" [value]="d['name']">
+                                            [disabled]="d['isSelected']" (click)="selectedData(i, j, h)"
+                                            [value]="d['name']">
                                             {{d.name}}
                                         </mat-option>
                                     </mat-select>
-                                    <!-- <mat-error *ngIf="tagControl.hasError('required')">Please choose
-                                        something</mat-error> -->
                                 </mat-form-field>
                             </div>
                         </div>

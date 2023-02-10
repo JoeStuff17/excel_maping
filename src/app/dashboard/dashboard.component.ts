@@ -12,10 +12,6 @@ export class DashboardComponent implements OnInit {
   errcount: any;
   totcount: any;
   tableHeader = [];
-  // totc = [];
-  // sc = [];
-  // fc = [];
-  // batchid =[];
   batchdata: any;
 
   constructor(private api: ApiService,
