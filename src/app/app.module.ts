@@ -8,10 +8,16 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HeaderComponent } from './header/header.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    SidenavComponent,
     
   ],
   imports: [
@@ -24,7 +30,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ToastrModule.forRoot(),
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,
-    })
+    }),
+    MatToolbarModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -37,7 +37,7 @@ export class TaggingComponent implements OnInit {
   ngOnInit(): void {
     this.readheader();
     if (this.dropdownList.length === 0) {
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/subscription')
     }
     this.fetch();
   }
@@ -57,6 +57,7 @@ export class TaggingComponent implements OnInit {
       }
     });
     this.dataService.passExcel_body.subscribe((bodyData: any) => {
+      console.log(bodyData);
       this.excelbodyData = bodyData;
     })
   }
@@ -79,9 +80,12 @@ export class TaggingComponent implements OnInit {
     } else {
       this.selectedList.push({id: i, name: this.dropdownList[j]['name']});
     }
+    
+    
     this.removeList();
     this.filterData = [];
-
+    console.log(this.excelbodyData);
+    
     for (let x = 1; x < this.excelbodyData.length; x++) {
       this.filterData.push(this.excelbodyData[x][j]);
     }
@@ -90,6 +94,7 @@ export class TaggingComponent implements OnInit {
       this.myObj[h.header] = [];
       this.myObj[h.header] = this.filterData;
     }
+    // console.log(this.myObj);
 
     for (let k = 0; k < this.tableHeader.length; k++) {
       if (this.myObj[this.tableHeader[k].header].length === 1) {
@@ -117,17 +122,19 @@ export class TaggingComponent implements OnInit {
       cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.value) {
+        // Swal.showLoading()
         this.api.addData(this.myObj).subscribe((res) => {
           // console.log(res);
           this.dataService.err_count.next(res.err);
           this.dataService.suc_count.next(res.data);
           // console.log(res.data);
+          Swal.fire(
+            'Well Done',
+            'Your Data Added Successfully',
+            'success'
+          ).then((res) => { this.router.navigateByUrl('/dashboard'); })
         });
-        Swal.fire(
-          'Well Done',
-          'Your Data Added Successfully',
-          'success'
-        ).then((res) => { this.router.navigateByUrl('/dashboard'); })
+       
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -145,6 +152,7 @@ export class TaggingComponent implements OnInit {
         this.tableHeader.push({ header: res.data[i], dropdown: this.dropdownList });
       }
       for (let i = 0; i < this.tableHeader.length; i++) {
+        
         this.myObj[this.tableHeader[i].header] = [this.filterData];
       }
     });

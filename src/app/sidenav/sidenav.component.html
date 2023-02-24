@@ -1,0 +1,15 @@
+<div class="h-full">
+  <mat-drawer-container class="example-container bg-white" autosize>
+  <mat-drawer #drawer class="example-sidenav " mode="side" opened="true" disableClose="true">
+    <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3 pl-3" routerLink="/subscription"> <i
+        class="icofont-badge px-3 text-lg"></i>Subscription</p>
+    <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3 pl-3" routerLink="/workshop"><i
+        class="icofont-tools-bag px-3 text-lg"></i>Workshop</p>
+    <!-- <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3">Subscription</p> -->
+  </mat-drawer>
+
+  <div class="h-full">
+    <router-outlet></router-outlet>
+  </div>
+  </mat-drawer-container>
+</div>

@@ -1,23 +1,17 @@
 <div
-    class="w-full h-full currently-loading bg-gradient-to-r from-[#304972] to-[#142033] flex items-stretch justify-center">
+    class="w-full h-full currently-loading bg-gradient-to-r from-[#304972] to-[#142033] flex justify-left justify-left">
     <div class="self-center">
-        <div class=" w-[450px] h-max shadow-md rounded-md bg-white ">
-            <div class="flex flex-col px-10 pt-10 items-center">
-                <span class="mb-3 text-2xl text-black font-cherif">Tag
+        <div class=" w-[700px] h-max shadow-md rounded-md bg-white">
+            <div class=" px-10 mt-18">
+                <span class=" flex justify-center pb-8 text-2xl text-black font-cherif">Tag
                     the Table Headers <mat-divider></mat-divider></span>
 
-                <div class="flex flex-col w-full p-3 mt-[10px]">
-                    <div class="">
-                        <!-- <div class="w-full flex justify-between gap-2 text-xl">
-                            <span class="font-medium font-sans flex justify-left p-2 w-full ml-6 self-center mb-2">SQL</span>
-                            <span
-                                class="font-medium font-sans text-xl flex justify-left ml-14 p-2 w-full mb-2">Excel</span>
-                        </div> -->
-
-                        <div class="py-1" *ngFor="let h of tableHeader, index as i">
+                <div class=" w-full mt-[2px]">
+                    <div class="flex flex-wrap gap-2">
+                        <div class="" *ngFor="let h of tableHeader, index as i">
                             <div>
-                                <span class="text-base flex items-center ml-4">{{h.header}} <small
-                                        class="text-red-600">*</small> </span>
+                                <span class="text-base flex items-center ">{{h.header}}
+                                    <small class="text-red-600">*</small> </span>
                             </div>
                             <div class="flex justify-center">
                                 <mat-form-field class="w-[40vh]" appearance="outline" [formGroup]="excelform">

@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.green .mat-badge-content{
+  background : rgb(35, 196, 2)
+}
+
+.red .mat-badge-content{
+  background : rgb(250, 24, 24)
+}
+

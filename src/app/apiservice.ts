@@ -9,6 +9,8 @@ import { Observable, Subject, tap } from "rxjs";
 export class ApiService {
   url = "http://localhost:3000/api/success-record";
   url1 = "http://localhost:3000/api/batch"
+  url2 = "http://localhost:3000/api/failed-record"
+
   constructor(private http: HttpClient) { }
 
   private _refresh = new Subject<void>();
@@ -46,6 +48,14 @@ export class ApiService {
 
   getCount(): Observable<any> {
     return this.http.get(this.url1 + '/count');
+  }
+
+  getSucRecords(): Observable<any> {
+    return this.http.get(this.url + '/suc-records');
+  }
+
+  getFailRecords(): Observable<any> {
+    return this.http.get(this.url2 + '/fail-records');
   }
 
 }
