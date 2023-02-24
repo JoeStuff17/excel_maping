@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
       this.ExcelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], { header: 1 });
       this.ExcelData1 = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], { header: 0 });
 
-      console.log("sheet reading",this.ExcelData, this.ExcelData1);
+      console.log("sheet reading", this.ExcelData1);
       this.dataService.passExcel_head.next(this.ExcelData[0]);
       this.dataService.passExcel_body.next(this.ExcelData);      
     }
