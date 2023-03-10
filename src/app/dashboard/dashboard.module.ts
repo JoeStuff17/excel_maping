@@ -7,10 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatBadgeModule} from '@angular/material/badge';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -22,10 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatFormFieldModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatToolbarModule,
-    MatBadgeModule,
-    MatDividerModule,
-    MatSidenavModule
+    MatDividerModule
   ]
 })
 export class DashboardModule { }

@@ -10,5 +10,5 @@ export class dataPassService{
     public passExcel_body: BehaviorSubject<any> = new BehaviorSubject<any>({});
     public suc_count: BehaviorSubject<any> = new BehaviorSubject<any>(0);
     public err_count: BehaviorSubject<any> = new BehaviorSubject<any>(0);
-
+    public batchId: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 }

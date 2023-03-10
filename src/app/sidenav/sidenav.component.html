@@ -1,15 +1,14 @@
 <div class="h-full">
   <mat-drawer-container class="example-container bg-white" autosize>
-  <mat-drawer #drawer class="example-sidenav " mode="side" opened="true" disableClose="true">
-    <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3 pl-3" routerLink="/subscription"> <i
-        class="icofont-badge px-3 text-lg"></i>Subscription</p>
-    <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3 pl-3" routerLink="/workshop"><i
-        class="icofont-tools-bag px-3 text-lg"></i>Workshop</p>
-    <!-- <p class="cursor-pointer text-lg border-b-2 border-gray-200 pb-3">Subscription</p> -->
-  </mat-drawer>
-
-  <div class="h-full">
-    <router-outlet></router-outlet>
-  </div>
+    <mat-drawer #drawer class="example-sidenav " mode="side" opened="true" disableClose="true">
+    <div *ngFor="let m of menuList; index as i">
+      <p class="cursor-pointer text-lg border-b-2 border-gray-200 h-11 pt-1" routerLink="m.route" 
+      [ngClass]="m['isSelect'] ? 'bg-blue-300 text-white'  : '' " (click)="selectMenu(i, m['route'])">
+      <i class="{{m.icon}} mx-3 my-1 text-xl"></i>{{m['name']}}</p>
+    </div>
+    </mat-drawer>
+    <div class="h-[85vh] w-[170vh] ml-2 bg-white">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-container>
 </div>

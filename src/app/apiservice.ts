@@ -7,9 +7,7 @@ import { Observable, Subject, tap } from "rxjs";
 })
 
 export class ApiService {
-  url = "http://localhost:3000/api/success-record";
-  url1 = "http://localhost:3000/api/batch"
-  url2 = "http://localhost:3000/api/failed-record"
+  url = "http://localhost:3000/api/";
 
   constructor(private http: HttpClient) { }
 
@@ -19,15 +17,15 @@ export class ApiService {
   }
 
   getFileHeader(): Observable<any> {
-    return this.http.get(this.url + '/fetch');
+    return this.http.get(this.url + 'success-record/fetch');
   }
 
   getExcelHeaders(): Observable<any> {
-    return this.http.get(this.url + '/read');
+    return this.http.get(this.url + 'success-record/read');
   }
 
   addData(payload: any): Observable<any> {
-    return this.http.post(this.url + '/create', payload).pipe(
+    return this.http.post(this.url + 'success-record/create', payload).pipe(
       tap(() => {
         this.Refresh.next();
       })
@@ -35,7 +33,7 @@ export class ApiService {
   }
 
   addFiles(payload: any): Observable<any> {
-    return this.http.post(this.url + '/upload', payload).pipe(
+    return this.http.post(this.url + 'success-record/upload', payload).pipe(
       tap(() => {
         this.Refresh.next();
       })
@@ -43,19 +41,31 @@ export class ApiService {
   }
 
   getRowCount(): Observable<any> {
-    return this.http.get(this.url + '/tot-count');
+    return this.http.get(this.url + 'success-record/tot-count');
   }
 
   getCount(): Observable<any> {
-    return this.http.get(this.url1 + '/count');
+    return this.http.get(this.url + 'batch/count');
   }
 
   getSucRecords(): Observable<any> {
-    return this.http.get(this.url + '/suc-records');
+    return this.http.get(this.url + 'success-record/suc-records');
   }
 
   getFailRecords(): Observable<any> {
-    return this.http.get(this.url2 + '/fail-records');
+    return this.http.get(this.url + 'failed-record/fail-records');
+  }
+
+  getBatches(): Observable<any>{
+    return this.http.get(this.url + 'batch/records');
+  }
+
+  getSuccessByBatch(id): Observable<any>{
+    return this.http.get(this.url + `success-record/findById?batch=${id}`);
+  }
+
+  getFailedByBatch(id): Observable<any>{
+    return this.http.get(this.url + `failed-record/findById?batch=${id}`);
   }
 
 }

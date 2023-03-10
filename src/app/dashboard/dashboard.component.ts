@@ -3,17 +3,30 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../apiservice';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable, Observer } from 'rxjs';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
+
   // asyncTabs: Observable<any[]>;
   successData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Batch No', 'Customer Name', 'Customer MobileNo', 'Plan Id'];
+  displayedColumns: string[] = ["batchNo",
+    "customerName",
+    "customerMobileNo",
+    "planId",
+    "vehicleBrand",
+    "vehicleModel",
+    "vehicleRegisterNo",
+    "sellerId",
+    "lat",
+    "lng",
+    "planPurchasedDate",
+    "processed",
+    "status"];
   successcount: any;
   errcount: any;
   totcount: any;
@@ -25,57 +38,41 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator1') paginator1: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
 
-
-  ngAfterViewInit() {
-    // this.failData.paginator = this.paginator2;
-
-  }
-
   constructor(private api: ApiService,
-    private readonly dataservice: dataPassService) {}
+    private readonly dataservice: dataPassService) { }
 
   async successCount(): Promise<any> {
     this.dataservice.suc_count.subscribe((data: any) => {
       return this.successcount = data;
     })
   }
+  async recordsFilter(): Promise<any> {
+    // this.api.
+  }
 
   async totalSuccessCount(): Promise<any> {
-    // this.api.getRowCount().subscribe((res)=>{
-    //   console.log(res.data);
-    //   return this.totcount = res.data;
-    // })
     this.totcount = this.successcount + this.errcount;
   }
 
   async errCount(): Promise<any> {
     this.dataservice.err_count.subscribe((data: any) => {
-      // console.log(data);
       return this.errcount = data;
     });
   }
-
+ 
   ngOnInit(): void {
-    this.getSuccessRec();
-    this.successCount();
-    this.errCount();
-    this.totalSuccessCount();
-    this.totCount();
-    this.getSqlhead();
-    this.getFailRec();
+        this.getSuccessRec();
+        this.successCount();
+        this.errCount();
+        this.totalSuccessCount();
+        this.totCount();
+        this.getSqlhead();
+        this.getFailRec();
   }
 
   async totCount(): Promise<any> {
     this.api.getCount().subscribe((res) => {
-      // console.log(res.data);
       this.batchdata = res.data;
-      // for (let i = 0; i< res.data.length; i++) {
-      //   this.batchid.push(res.data[i].id);
-      //   this.fc.push(res.data[i].failedCount);
-      //   this.sc.push(res.data[i].successCount);
-      //   this.totc.push(res.data[i].totalCount);
-      // }
-      // console.log(this.sc);
     })
   }
 
@@ -97,12 +94,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async getFailRec(): Promise<any> {
     this.api.getFailRecords().subscribe((res: any) => {
-      console.log(res);
       res.data.reverse();
-      this.failData = new MatTableDataSource (res.data);
+      this.failData = new MatTableDataSource(res.data);
       this.failData.paginator = this.paginator2;
     })
-  }  
+  }
 
   applyFilter(event: Event) {
     // const filterValue = (event.target as HTMLInputElement).value;
@@ -112,5 +108,4 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //   this.dataSource.paginator.firstPage();
     // }
   }
-
 }

@@ -1,110 +1,221 @@
- 
-        <div class="flex mt-8 overflow-y">
-            <div class="w-full flex flex-col ml-9">
-                <div class="flex gap-5 pb-8">
-                    <div class=" rounded-xl shadow-sm border border-gray-50 bg-white">
-                        <div class="flex sm:m-3 xl:m-8">
-                            <div class="flex gap-2 xl:gap-8">
-                                <div class="flex flex-col h-max pr-[120px] border-r-2 border-gray-200">
-                                    <span class="text-lg font-medium">Total Entry</span>
-                                    <span class="text-[12px] text-gray-500">Total uploaded in database</span>
-                                    <span class="pt-2 text-2xl font-medium">{{totcount}}</span>
-                                </div>
+<div class="flex mt-8 ">
+    <div class="w-full flex flex-col ml-9">
+        <div class="mb-5 flex justify-between items-center" *ngIf="totcount > 0">
+            <div class="flex flex-col h-max pr-[120px] border-gray-200">
+                <span class="text-lg font-medium">Total Entry</span>
+                <span class="text-[12px] text-gray-500">Total uploaded in database</span>
+                <span class="pt-2 text-2xl font-medium">{{totcount}}</span>
+            </div>
 
-                                <div class=" h-full flex flex-col pr-[120px] border-r-2 border-gray-200">
-                                    <span class="text-lg font-medium">Success Entry:
-                                    </span>
-                                    <span class="text-[12px] text-gray-500">Success rows uploaded count</span>
-                                    <span class="pt-2 text-2xl font-medium">{{successcount}}</span>
-                                </div>
+            <div class=" h-full flex flex-col pr-[120px] border-gray-200">
+                <span class="text-lg font-medium">Success Entry:
+                </span>
+                <span class="text-[12px] text-gray-500">Success rows uploaded count</span>
+                <span class="pt-2 text-2xl font-medium">{{successcount}}</span>
+            </div>
 
-                                <div class=" h-max flex flex-col pr-[120px] ">
-                                    <span class="text-lg font-medium">Failed Entry:</span>
-                                    <span class="text-[12px] text-gray-500">Failed Rows uploaded count</span>
-                                    <span class="pt-2 text-2xl font-medium">{{errcount}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <mat-tab-group class="w-[150vh] flex justify-center">
-                    <mat-tab class="">
-                        <ng-template mat-tab-label>
-                            <span class="green" matBadge={{successcount}} matBadgeOverlap="false">Success</span>
-                        </ng-template>
-                        <div class="flex flex-col mat-elevation-z2 ">
-                            <table mat-table [dataSource]="successData">
-                                <!-- Batch No Column -->
-                                <ng-container matColumnDef="Batch No">
-                                    <th mat-header-cell *matHeaderCellDef> Batch No </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.batch.id}} </td>
-                                </ng-container>
-
-                                <!-- Customer_Name Column -->
-                                <ng-container matColumnDef="Customer Name">
-                                    <th mat-header-cell *matHeaderCellDef> Customer Name </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Customer_Name}} </td>
-                                </ng-container>
-
-                                <!-- Customer_MobileNo Column -->
-                                <ng-container matColumnDef="Customer MobileNo">
-                                    <th mat-header-cell *matHeaderCellDef> Customer MobileNo </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Customer_MobileNo}} </td>
-                                </ng-container>
-
-                                <!-- Plan_Id Column -->
-                                <ng-container matColumnDef="Plan Id">
-                                    <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Id </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Plan_Id}} </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-                            <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                                aria-label="Select page">
-                            </mat-paginator>
-                        </div>
-                    </mat-tab>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <span class="red" matBadge={{errcount}} matBadgeOverlap="false">Failed</span>
-                        </ng-template>
-                        <div class="flex flex-col mat-elevation-z2 ">
-                            <table mat-table [dataSource]="failData">
-                                <!-- Batch No Column -->
-                                <ng-container matColumnDef="Batch No">
-                                    <th mat-header-cell *matHeaderCellDef> Batch No </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.batch.id}} </td>
-                                </ng-container>
-
-                                <!-- Customer_Name Column -->
-                                <ng-container matColumnDef="Customer Name">
-                                    <th mat-header-cell *matHeaderCellDef> Customer Name </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Customer_Name}} </td>
-                                </ng-container>
-
-                                <!-- Customer_MobileNo Column -->
-                                <ng-container matColumnDef="Customer MobileNo">
-                                    <th mat-header-cell *matHeaderCellDef> Customer MobileNo </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Customer_MobileNo}} </td>
-                                </ng-container>
-
-                                <!-- Plan_Id Column -->
-                                <ng-container matColumnDef="Plan Id">
-                                    <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Id </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.Plan_Id}} </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-                            <mat-paginator #paginator2 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                                aria-label="Select page">
-                            </mat-paginator>
-                        </div>
-                    </mat-tab>
-                </mat-tab-group>
+            <div class=" h-max flex flex-col pr-[120px] ">
+                <span class="text-lg font-medium">Failed Entry:</span>
+                <span class="text-[12px] text-gray-500">Failed Rows uploaded count</span>
+                <span class="pt-2 text-2xl font-medium">{{errcount}}</span>
             </div>
         </div>
+
+        <mat-tab-group class="w-full flex justify-center">
+            <mat-tab class="mat-tab" #first>
+                <ng-template mat-tab-label>
+                    <span class="green text-green-700">Success</span>
+                </ng-template>
+                <div class="flex flex-col mat-elevation-z2 ">
+                    <table mat-table [dataSource]="successData">
+                        <!-- Batch No Column -->
+                        <ng-container matColumnDef="batchNo">
+                            <th mat-header-cell *matHeaderCellDef> Batch No </th>
+                            <td mat-cell *matCellDef="let element"> {{element.batch.id}} </td>
+                        </ng-container>
+
+                        <!-- Customer_Name Column -->
+                        <ng-container matColumnDef="customerName">
+                            <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Customer_Name}} </td>
+                        </ng-container>
+
+                        <!-- Customer_MobileNo Column -->
+                        <ng-container matColumnDef="customerMobileNo">
+                            <th mat-header-cell *matHeaderCellDef> Customer MobileNo </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Customer_MobileNo}} </td>
+                        </ng-container>
+
+                        <!-- Plan_Id Column -->
+                        <ng-container matColumnDef="planId">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Plan_Id}} </td>
+                        </ng-container>
+
+                        <!-- Vehicle_Brand Column -->
+                        <ng-container matColumnDef="vehicleBrand">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Brand </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Vehicle_Brand}} </td>
+                        </ng-container>
+
+                        <!-- Vehicle_Model Column -->
+                        <ng-container matColumnDef="vehicleModel">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Model </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Vehicle_Model}} </td>
+                        </ng-container>
+
+                        <!-- Vehicle_Register_No Column -->
+                        <ng-container matColumnDef="vehicleRegisterNo">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Register No </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Vehicle_Register_No}} </td>
+                        </ng-container>
+
+                        <!-- Seller_Id Column -->
+                        <ng-container matColumnDef="sellerId">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Seller Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Seller_Id}} </td>
+                        </ng-container>
+
+                        <!-- lat Column -->
+                        <ng-container matColumnDef="lat">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> lat </th>
+                            <td mat-cell *matCellDef="let element"> {{element.lat}} </td>
+                        </ng-container>
+
+                        <!-- lng Column -->
+                        <ng-container matColumnDef="lng">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> lng </th>
+                            <td mat-cell *matCellDef="let element"> {{element.lng}} </td>
+                        </ng-container>
+
+                        <!-- Plan_Purchased_Date Column -->
+                        <ng-container matColumnDef="planPurchasedDate">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Purchased Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Plan_Purchased_Date | date: 'dd MMM y'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- processed Column -->
+                        <ng-container matColumnDef="processed">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Processed </th>
+                            <td mat-cell *matCellDef="let element"> {{element.processed}} </td>
+                        </ng-container>
+
+                        <!-- status Column -->
+                        <ng-container matColumnDef="status">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+
+                        <!-- Subscription_Id Column
+                        <ng-container matColumnDef="subscriptionId">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Subscription Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Subscription_Id}} </td>
+                        </ng-container> -->
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                </div>
+                <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page">
+                </mat-paginator>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label #second>
+                    <span class="red">Failed</span>
+                </ng-template>
+                <div class="flex flex-col mat-elevation-z2 ">
+                    <table mat-table [dataSource]="failData">
+                        <!-- Batch No Column -->
+                        <ng-container matColumnDef="batchNo">
+                            <th mat-header-cell *matHeaderCellDef> Batch No </th>
+                            <td mat-cell *matCellDef="let element"> {{element.batch.id}} </td>
+                        </ng-container>
+
+                        <!-- Customer_Name Column -->
+                        <ng-container matColumnDef="customerName">
+                            <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Customer_Name}} </td>
+                        </ng-container>
+
+                        <!-- Customer_MobileNo Column -->
+                        <ng-container matColumnDef="customerMobileNo">
+                            <th mat-header-cell *matHeaderCellDef> Customer MobileNo </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Customer_MobileNo}} </td>
+                        </ng-container>
+
+                        <!-- Plan_Id Column -->
+                        <ng-container matColumnDef="planId">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Plan_Id}} </td>
+                        </ng-container>
+
+                        <!-- Vehicle_Brand Column -->
+                        <ng-container matColumnDef="vehicleBrand">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Brand </th>
+                            <td mat-cell *matCellDef="let element">{{element.Vehicle_Brand}}</td>
+                        </ng-container>
+
+                        <!-- Vehicle_Model Column -->
+                        <ng-container matColumnDef="vehicleModel">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Model </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Vehicle_Model}} </td>
+                        </ng-container>
+
+                        <!-- Vehicle_Register_No Column -->
+                        <ng-container matColumnDef="vehicleRegisterNo">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Vehicle Register No </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Vehicle_Register_No}} </td>
+                        </ng-container>
+
+                        <!-- Seller_Id Column -->
+                        <ng-container matColumnDef="sellerId">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Seller Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Seller_Id}} </td>
+                        </ng-container>
+
+                        <!-- lat Column -->
+                        <ng-container matColumnDef="lat">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> lat </th>
+                            <td mat-cell *matCellDef="let element"> {{element.lat}} </td>
+                        </ng-container>
+
+                        <!-- lng Column -->
+                        <ng-container matColumnDef="lng">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> lng </th>
+                            <td mat-cell *matCellDef="let element"> {{element.lng}} </td>
+                        </ng-container>
+
+                        <!-- Plan_Purchased_Date Column -->
+                        <ng-container matColumnDef="planPurchasedDate">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Plan Purchased Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Plan_Purchased_Date | date: 'dd MMM y'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- processed Column -->
+                        <ng-container matColumnDef="processed">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> Processed </th>
+                            <td mat-cell *matCellDef="let element"> {{element.processed}} </td>
+                        </ng-container>
+
+                        <!-- status Column -->
+                        <ng-container matColumnDef="status">
+                            <th class="items-center" mat-header-cell *matHeaderCellDef> status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                </div>
+                <mat-paginator #paginator2 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page">
+                </mat-paginator>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

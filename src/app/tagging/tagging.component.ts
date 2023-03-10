@@ -19,13 +19,13 @@ export class TaggingComponent implements OnInit {
   filterData = [];
   tableHeader = [];
   mappingData: any[] = [];
-  myObj = {};
+  myObj: any = {};
   tableLength: any;
-  strucure = {};
   counter = 0;
   disabled = true;
   selectedList: any[] = [];
   headerData: any;
+  allData: any[] = [];
 
   constructor(private readonly fb: FormBuilder,
     private readonly dataService: dataPassService,
@@ -70,45 +70,39 @@ export class TaggingComponent implements OnInit {
 
   ///----->Dropdown selection
   selectedData(i: any, j: number, h: any) {
-    if (this.selectedList.length > 0) {      
+    if (this.selectedList.length > 0) {
       const isExistIndex = this.selectedList.findIndex((x: any) => x.id === i);
       if (isExistIndex < 0) {
-        this.selectedList.push({id: i, name: this.dropdownList[j]['name']});
+        this.selectedList.push({ id: i, name: this.dropdownList[j]['name'] });
       } else {
         this.selectedList[isExistIndex]['name'] = this.dropdownList[j]['name'];
       }
     } else {
-      this.selectedList.push({id: i, name: this.dropdownList[j]['name']});
+      this.selectedList.push({ id: i, name: this.dropdownList[j]['name'] });
     }
-    
-    
     this.removeList();
     this.filterData = [];
-    console.log(this.excelbodyData);
-    
-    for (let x = 1; x < this.excelbodyData.length; x++) {
-      this.filterData.push(this.excelbodyData[x][j]);
-    }
+    console.log(this.allData);
+    let arr = [];
 
-    if (this.tableHeader[i] === h) {
-      this.myObj[h.header] = [];
-      this.myObj[h.header] = this.filterData;
+    for (let x = 0; x < (this.excelbodyData.length - 1); x++) {
+      this.allData[x][h.header] = this.excelbodyData[Number(x + 1)][j];
     }
-    // console.log(this.myObj);
-
-    for (let k = 0; k < this.tableHeader.length; k++) {
-      if (this.myObj[this.tableHeader[k].header].length === 1) {
-        this.disabled = true;
-        return;
-      }
-    }
-    this.disabled = false;
+    // for (let k = 0; k < this.tableHeader.length; k++) {
+    //   if (this.myObj[this.tableHeader[k].header].length === 1) {
+    //     this.disabled = false;
+    //     return;
+    //   }
+    // }
+    this.tableHeader[i]['isSelected'] = true;
+    this.disabled = this.tableHeader.filter((x: any) => !x.isSelected).length > 0;
+    // this.disabled = false;
   }
 
-  removeList() {    
+  removeList() {
     this.unSelectData();
     for (const s of this.selectedList) {
-     this.dropdownList.filter((x: any) => x.name == s.name)[0]['isSelected'] = true;
+      this.dropdownList.filter((x: any) => x.name == s.name)[0]['isSelected'] = true;
     }
   }
 
@@ -123,8 +117,10 @@ export class TaggingComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         // Swal.showLoading()
-        this.api.addData(this.myObj).subscribe((res) => {
-          // console.log(res);
+        console.log(this.allData);
+        
+        this.api.addData(this.allData).subscribe((res) => {
+          console.log(res);
           this.dataService.err_count.next(res.err);
           this.dataService.suc_count.next(res.data);
           // console.log(res.data);
@@ -134,7 +130,7 @@ export class TaggingComponent implements OnInit {
             'success'
           ).then((res) => { this.router.navigateByUrl('/dashboard'); })
         });
-       
+
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -148,12 +144,12 @@ export class TaggingComponent implements OnInit {
   fetch() {
     this.api.getFileHeader().subscribe((res: any) => {
       this.tableLength = res.data.length;
+      console.log("filter", this.filterData);
       for (let i = 0; i < res.data.length; i++) {
-        this.tableHeader.push({ header: res.data[i], dropdown: this.dropdownList });
+        this.tableHeader.push({ header: res.data[i], dropdown: this.dropdownList, isSelected: false });
       }
-      for (let i = 0; i < this.tableHeader.length; i++) {
-        
-        this.myObj[this.tableHeader[i].header] = [this.filterData];
+      for (let x = 1; x < this.excelbodyData.length; x++) {
+        this.allData.push({});
       }
     });
   }
