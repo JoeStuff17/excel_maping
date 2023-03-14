@@ -6,7 +6,6 @@ import { ApiService } from '../apiservice';
 import * as XLSX from 'xlsx';
 import { dataPassService } from '../datapassService';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { event } from 'jquery';
 
 
 // const Excel = require('exceljs');
