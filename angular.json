@@ -32,7 +32,8 @@
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "node_modules/sweetalert2/src/sweetalert2.scss"
+              "node_modules/sweetalert2/src/sweetalert2.scss",
+              "src/assets/icofont/icofont.min.css"
             ],
             "scripts": []
           },

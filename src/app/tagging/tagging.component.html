@@ -1,45 +1,38 @@
-<div class="w-full h-full bg-gray-900 rounded-t-full flex items-stretch justify-center">
+<div
+    class="w-full h-full currently-loading bg-gradient-to-r from-[#304972] to-[#142033] flex justify-left justify-left">
     <div class="self-center">
-        <div class=" w-max h-max shadow-lg rounded-xl bg-yellow-700">
-            <div class="flex flex-col p-10 items-center">
-                <span class="mb-3 text-2xl text-white">Tag
-                    the Table Headers with Suitable One</span>
-                <div class="flex w-full p-3 max-w-lg bg-white shadow-xl mt-[10px]">
-                    <div class="w-full ">
-                        <div class="w-full flex justify-between gap-2 text-xl">
-                            <span class="font-medium flex justify-center p-2 bg-gray-100 w-full self-center mb-4">SQL _
-                                Table:</span>
-                            <span class="font-medium text-xl flex justify-center p-2 bg-gray-100 w-full mb-4">Excel _
-                                Table:</span>
-                        </div>
+        <div class=" w-[700px] h-max shadow-md rounded-md bg-white">
+            <div class=" px-10 mt-18">
+                <span class=" flex justify-center pb-8 text-2xl text-black font-cherif">Tag
+                    the Table Headers <mat-divider></mat-divider></span>
 
-                        <div class="flex justify-between  py-1" *ngFor="let h of tableHeader, index as i">
+                <div class=" w-full mt-[2px]">
+                    <div class="flex flex-wrap gap-2">
+                        <div class="" *ngFor="let h of tableHeader, index as i">
                             <div>
-                                <span class="text-base flex items-center mt-3 ml-8">{{h}} <small
-                                        class="text-red-600">*</small> </span>
+                                <span class="text-base flex items-center ">{{h.header}}
+                                    <small class="text-red-600">*</small> </span>
                             </div>
-                            <div>
-                                <mat-form-field appearance="outline" [formGroup]="excelform">
-                                    <!-- <mat-label>Select One</mat-label> -->
-                                    <mat-select formControlName="dropbox">
-                                        <mat-option *ngFor="let d of dropdownList | keyvalue, index as j"
-                                            (onSelectionChange)="selectedData( d , i, j, h)" [value]="d"> {{d.value}}
+                            <div class="flex justify-center">
+                                <mat-form-field class="w-[40vh]" appearance="outline" [formGroup]="excelform">
+                                    <mat-select #dropdown formControlName="dropbox">
+                                        <mat-option *ngFor="let d of dropdownList, index as j"
+                                            [disabled]="d['isSelected']" (click)="selectedData(i, j, h)"
+                                            [value]="d['name']">
+                                            {{d.name}}
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="tagControl.hasError('required')">Please choose
-                                        something</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mt-6">
-                    <button class="text-base text-white bg-violet-600" [disabled]="excelform.invalid" mat-raised-button
-                        (click)="copyData()">Upload all Data</button>
-                </div>
-                <!-- routerLink="/dashboard" -->
+
+            </div>
+            <div class="">
+                <button class="flex w-full h-[52px] text-base text-white bg-green-600" [disabled]="disabled"
+                    mat-raised-button (click)="copyData()">Upload all Data</button>
             </div>
         </div>
-        <!-- <img class="ml-[200px] h-[300px] mt-[200px]" src="../../assets/Lottie/28799-a-woman-in-isometric-style-works-at-a-table.gif" > -->
     </div>
 </div>

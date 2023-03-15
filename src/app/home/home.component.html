@@ -1,29 +1,60 @@
-<div class="flex h-full">
-    <div class="w-4/12 bg-green-300">
-        <div
-            class="flex w-[600px] h-[500px] p-6 max-w-md mx-auto bg-white rounded-xl shadow-xl flex items-center space-x-4 ml-[270px] mt-[180px]">
-            <img src="../../assets/Lottie/7491-uploading-files.gif">
-        </div>
-    </div>
-    <div class="w-3/12"></div>
-    <div class="w-6/12">
-        <div class="flex flex-col mt-[300px]">
-            <p
-                class=" flex self-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-                Choose the Excel-file</p>
-            <div class="p-6 w-max bg-white rounded-xl shadow-lg flex items-center self-center">
-                <form [formGroup]="uploadForm">
-                    <input type="file" formControlName="file" (change)="readfile($event) "><br>
-                </form>
-                <button class="w-[100px]" mat-raised-button (click)="upload()">Upload</button>
-            </div>
-            <div class="mt-5 flex self-end mr-[160px]">
-                <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button routerLink="/tagging">
-                    Continue
-                    <!-- <mat-icon>forward</mat-icon> -->
-                </button>
-            </div>
-        </div>
+<div class="flex h-full ">
+  <div class="md:inline-block w-full h-full xl:w-5/12 ">
 
+    <div class="flex flex-col mt-[160px] sm:mt-[160px] md:mt-[160px] xl:mt-[160px]">
+      <p class=" flex pl-1 md:pl-[10vh] xl:pl-[10vh] pb-8 text-3xl text-gray-800 font-medium bg-clip-text font-sans">Add
+        {{lastword}}</p>
+      <p class=" flex pl-2 md:pl-[10vh] xl:pl-[10vh] text-xl text-gray-800 font-medium bg-clip-text font-sans">
+        Choose the Excel-file</p>
+      <small class="pl-2 md:pl-[10vh] xl:pl-[10vh]"> <span class="text-red-600">*</span> Only accecpt .xlsx, .csv,
+        .xlsm, .xls</small>
+
+        <div class="p-1 mt-2 w-[55vh] ml-[9vh]">
+          <form [formGroup]="uploadForm">
+          <div class="relative">
+            <input formControlName="file" type="file" id="file" accept=".xlsx, .csv, .xlsm, .xls" class="hidden"
+              (change)="readfile($event)">
+            <label for="file">
+              <span id="file-name"
+                class="inline-block w-[85%] rounded-l-lg p-4 bg-gray-100 items-center cursor-pointer">{{uploadInputPlaceholder}}</span>
+              <button class="bg-blue-500 w-[15%] p-4 text-white absolute rounded-r-lg" [disabled]="buttonDisable1" (click)="upload()">
+                <i class="icofont-upload-alt"></i>
+              </button>
+            </label>
+          </div>
+          </form>
+        </div>
+      
+      <div class="mt-5 flex flex-col ml-3 w-[54vh] self-center gap-1">
+        <button class="bg-green-400" [disabled]="buttonDisable" mat-raised-button routerLink="/tagging">
+          Continue
+        </button>
+        <span class="flex self-center text-blue-500 cursor-pointer" *ngIf="!buttonDisable"
+          onclick="history.go(0)">Choose Another</span>
+      </div>
     </div>
+
+  </div>
+
+  <!-- <div class="hidden md:inline-block xl:w-3/12 bg-green-300"></div> -->
+  <div class="hidden sm:inline-block  w-full xl:w-7/12 mt-16 pr-3">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide>
+        <div class="slide ">
+          <img src="https://readyassist.in/assets/images/services/bonetopen_mechanic.jpg" alt="img 1">
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="slide ">
+          <img src="https://readyassist.in/assets/images/services/fuel-tank.jpg" alt="img 2">
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="slide ">
+          <img src="https://readyassist.in/assets/images/services/car-tyre_onroad.jpg" alt="img 3">
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+
+  </div>
 </div>

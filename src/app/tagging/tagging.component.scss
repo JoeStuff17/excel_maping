@@ -13,3 +13,15 @@
         margin: 0px !important;
     }
 }
+
+.currently-loading {
+    // opacity:0.45;
+    // -moz-opacity:0.45;
+    filter:alpha(opacity=45);
+    width: full;
+    background-attachment: fixed;
+    // background-color: oldlace;
+    background-image: url(../../assets/Lottie/63588-files-transfer-lottie-animation.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+    }
